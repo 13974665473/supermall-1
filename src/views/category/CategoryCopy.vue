@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <ul class="content">
-      <button class="btn" @click="btnClick">按钮</button>
+      <button class="btn">按钮</button>
       <li>分类1</li>
       <li>分类2</li>
       <li>分类3</li>
@@ -117,26 +117,34 @@
     },
     mounted() {
       const bscroll = new BScroll('.wrapper',{
-        probeType: 3,
-        pullUpLoad: true,
+        // 默认情况下BScroll不实时侦测滚动位置
+        // probe 侦测
+      // 0.1都是不侦测实时的位置
+      // 2 在手指滚动的过程中侦测,手指离开后的惯性滚动过程中不侦测
+      // 3 只要是滚动都侦测
+      probeType: 3,
+      click: true,
+      pullUpLoad: true,
+       
       });
-
       bscroll.on('scroll', position => {
         // console.log(position);
         
       });
+      bscroll.on('pullingUp', () =>{
+        console.log('上拉加载');
+        // 发送网络请求，请求更多的数据
 
-      bscroll.on('pullingUp', () => {
-        console.log('上拉加载更多');
+        // 等数据请求完成之后，并且将新的数据展示出来后
         setTimeout(() => {
           bscroll.finishPullUp()
-        }, 1000)
-      }) 
-    },
-    methods: {
-      btnClick() {
-        console.log('btnClick');
-      }
+        }, 1000);
+        
+      })
+      document.querySelector('.btn').addEventListener('click', function() {
+        console.log('**********');
+        
+      })
     }
   }
 </script>
