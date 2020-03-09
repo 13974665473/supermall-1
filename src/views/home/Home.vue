@@ -1,11 +1,18 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    <scroll class="content" ref='homeScroll' :probe-type = '3' @scroll="contentScroll">
+    <scroll class="content"
+            ref='homeScroll'
+            :probe-type = '3' 
+            @scroll="contentScroll" 
+            :pull-up-load = 'true'
+            @pullingUp="loadMore">
       <home-swiper :banners = 'banners'></home-swiper>
       <recommend-view :recommends = 'recommends'></recommend-view>
       <feature-view></feature-view>
-      <tab-control :titles="['流行','新款','精选']" class="tab-control" @tabClick = 'tabClick'></tab-control>
+      <tab-control :titles="['流行','新款','精选']" 
+                    @tabClick = 'tabClick'
+></tab-control>
       <goods-list :goods = 'showGoods'></goods-list>
     </scroll>
     <back-top  @click.native="backClick" v-show='topIsShow'></back-top>
@@ -85,7 +92,12 @@
       },
 
       contentScroll(position) {
-        this.topIsShow = (- position.y) > 1000
+        this.topIsShow = (- position.y) > 1000;
+      },
+
+      loadMore(){
+        this.getHomeGoods(this.currentType)
+        
       },
       // 网络请求
       getHomeMultidata() {
@@ -120,13 +132,11 @@
     top: 0;
     z-index: 9;
   }
-  .tab-control {
-    top:44px
-  }
   .content {
     height: calc(100% - 49px);
     overflow: hidden;
     position: relative;
     top:44px
   } 
+
 </style>

@@ -15,6 +15,10 @@ export default {
     probeType: {
       type: Number,
       default: 0 //默认不实时监听，节省性能
+    },
+    pullUpLoad: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -27,6 +31,7 @@ export default {
     this.scroll = new BScroll(this.$refs.wrapper, {
       click: true, //BScroll对象内的点击事件是否可点击
       probeType: this.probeType, //实时监听滚动位置模式
+      pullUpLoad: this.pullUpLoad //上拉加载
     })
     
     // 监听滚动的位置
@@ -34,6 +39,16 @@ export default {
       // console.log(position); //打印滚动位置
       // 发送滚动事件
       this.$emit('scroll',position)
+    })
+
+    // 监听上拉事件
+    this.scroll.on('pullingUp', () => {
+      this.$emit('pullingUp')
+
+      // 2秒后再次上拉加载,设置延迟避免重复加载
+      setTimeout(() => {
+        this.scroll.finishPullUp()
+      }, 2000);
     })
   },
   methods: {
