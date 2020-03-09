@@ -2,7 +2,7 @@
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
     <scroll class="content"
-            ref='homeScroll'
+            ref='scroll'
             :probe-type = '3' 
             @scroll="contentScroll" 
             :pull-up-load = 'true'
@@ -70,6 +70,15 @@
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
     },
+    mounted() {
+        // 监听事件总线发送来的事件
+        this.$bus.$on('itemImageLoad', () => {
+        // 调用scroll的refresh刷新可滚动高度
+        this.$refs.scroll.refresh()
+        // console.log('------');
+        
+      })
+    },
     methods: {
       // 事件监听
       tabClick(index) {
@@ -86,9 +95,13 @@
         }
         
       },
+
+      refresh() {
+        this.scroll.refresh()
+      },
       
       backClick() {
-        this.$refs.homeScroll.scrollTo(0, 0)
+        this.$refs.scroll.scrollTo(0, 0)
       },
 
       contentScroll(position) {

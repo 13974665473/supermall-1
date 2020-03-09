@@ -39,6 +39,7 @@ export default {
       // console.log(position); //打印滚动位置
       // 发送滚动事件
       this.$emit('scroll',position)
+
     })
 
     // 监听上拉事件
@@ -47,14 +48,18 @@ export default {
 
       // 2秒后再次上拉加载,设置延迟避免重复加载
       setTimeout(() => {
-        this.scroll.finishPullUp()
+        this.scroll && this.scroll.finishPullUp()
       }, 2000);
     })
   },
   methods: {
     // 返回顶部方法封装，不传time会默认时长为500ms
     scrollTo(x, y, time = 500) {
-      this.scroll.scrollTo(x, y, time)
+      this.scroll && this.scroll.scrollTo(x, y, time)
+    },
+    refresh() {
+      // 刷新可滚动高度
+      this.scroll && this.scroll.refresh()
     }
   }
 }
