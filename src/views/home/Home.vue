@@ -1,14 +1,14 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    <scroll class="content" ref='homeScroll'>
+    <scroll class="content" ref='homeScroll' :probe-type = '3' @scroll="contentScroll">
       <home-swiper :banners = 'banners'></home-swiper>
       <recommend-view :recommends = 'recommends'></recommend-view>
       <feature-view></feature-view>
       <tab-control :titles="['流行','新款','精选']" class="tab-control" @tabClick = 'tabClick'></tab-control>
       <goods-list :goods = 'showGoods'></goods-list>
     </scroll>
-    <back-top  @click.native="backClick"></back-top>
+    <back-top  @click.native="backClick" v-show='topIsShow'></back-top>
   </div>
 </template>
 
@@ -46,7 +46,8 @@
           'new': {page: 0,list: []},
           'sell': {page: 0,list: []},
         },
-        currentType: 'pop'
+        currentType: 'pop',
+        topIsShow: false,
       }
     },
     computed: {
@@ -82,6 +83,10 @@
       backClick() {
         this.$refs.homeScroll.scrollTo(0, 0)
       },
+
+      contentScroll(position) {
+        this.topIsShow = (- position.y) > 1000
+      },
       // 网络请求
       getHomeMultidata() {
         getHomeMultidata().then(res => {
@@ -97,8 +102,6 @@
           this.goods[type].page += 1 
         })
       },
-
-
     }
   }
 </script>
