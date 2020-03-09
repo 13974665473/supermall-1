@@ -1,7 +1,7 @@
 <template>
-  <div id="home" @mousewheel.prevent>
+  <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    <scroll class="content">
+    <scroll class="content" ref='homeScroll'>
       <home-swiper :banners = 'banners'></home-swiper>
       <recommend-view :recommends = 'recommends'></recommend-view>
       <feature-view></feature-view>
@@ -78,6 +78,10 @@
         }
         
       },
+      
+      backClick() {
+        this.$refs.homeScroll.scrollTo(0, 0)
+      },
       // 网络请求
       getHomeMultidata() {
         getHomeMultidata().then(res => {
@@ -94,10 +98,6 @@
         })
       },
 
-      backClick() {
-        console.log('up');
-        
-      }
 
     }
   }
@@ -120,7 +120,6 @@
   .tab-control {
     top:44px
   }
-
   .content {
     height: calc(100% - 49px);
     overflow: hidden;
