@@ -71,16 +71,27 @@
       this.getHomeGoods('sell')
     },
     mounted() {
+      const refresh = this.debounce(this.$refs.scroll.refresh, 100)
         // 监听事件总线发送来的事件
         this.$bus.$on('itemImageLoad', () => {
         // 调用scroll的refresh刷新可滚动高度
-        this.$refs.scroll.refresh()
-        // console.log('------');
+        refresh()
+
         
       })
     },
     methods: {
-      // 事件监听
+      /********* 事件监听********/
+      // 防抖函数
+      debounce(func, delay) {
+        let timer = null
+        return function (...args) {
+          if (timer) clearTimeout(timer)
+          timer = setTimeout(() => {
+            func.apply(this, args)
+          },delay)
+        }
+      },
       tabClick(index) {
         switch(index){
           case 0:

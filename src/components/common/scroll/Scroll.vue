@@ -59,6 +59,7 @@ export default {
     },
     refresh() {
       // 刷新可滚动高度
+              console.log('------');
       this.scroll && this.scroll.refresh()
     }
   }
