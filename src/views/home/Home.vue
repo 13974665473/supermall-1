@@ -120,7 +120,7 @@
 
       contentScroll(position) {
         // 判断backtop是否显示
-        this.topIsShow = (- position.y) > 1000;
+        this.topIsShow = (- position.y) > this.tabOffsetTop - 1;
         // 决定tabcontrol是否吸顶
         this.isTabFixed = (- position.y) > this.tabOffsetTop
 
