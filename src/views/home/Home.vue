@@ -65,6 +65,7 @@
         topIsShow: false,
         tabOffsetTop: 0,
         isTabFixed: false,
+        saveY:0,
       }
     },
     computed: {
@@ -72,25 +73,7 @@
         return this.goods[this.currentType].list
       }
     },
-    created() {
-      // 1.请求首页的多个数据
-      this.getHomeMultidata()
-      // 请求商品数据
-      this.getHomeGoods('pop')
-      this.getHomeGoods('new')
-      this.getHomeGoods('sell')
-
-    },
-    mounted() {
-      // 图片加载完成事件监听，刷新scroll的可滚动高度，优化用户体验
-      const refresh = debounce(this.$refs.scroll.refresh, 100)
-        // 监听事件总线发送来的事件
-        this.$bus.$on('itemImageLoad', () => {
-        // 调用scroll的refresh刷新可滚动高度
-        refresh()
-      })
-
-    },
+    
     methods: {
       /********* 事件监听********/
       tabClick(index) {
@@ -151,6 +134,35 @@
           this.goods[type].page += 1 
         })
       },
+    },
+
+    created() {
+      // 1.请求首页的多个数据
+      this.getHomeMultidata()
+      // 请求商品数据
+      this.getHomeGoods('pop')
+      this.getHomeGoods('new')
+      this.getHomeGoods('sell')
+
+    },
+    mounted() {
+      // 图片加载完成事件监听，刷新scroll的可滚动高度，优化用户体验
+      const refresh = debounce(this.$refs.scroll.refresh, 100)
+        // 监听事件总线发送来的事件
+        this.$bus.$on('itemImageLoad', () => {
+        // 调用scroll的refresh刷新可滚动高度
+        refresh()
+      })
+
+    },
+    activated() {
+      this.$refs.scroll.scrollTo(0, this.saveY, 0)
+      this.$refs.scroll.refresh()
+    },
+    deactived(){
+      this.saveY = this.$refs.scroll.scroll.y
+      console.log(this.saveY);
+      
     }
   }
 </script>

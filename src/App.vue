@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="wrapper">
-    <keep-alive include="Home">
-          <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
     </keep-alive>
     <main-tab-bar></main-tab-bar>
   </div>
