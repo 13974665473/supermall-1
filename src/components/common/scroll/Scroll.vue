@@ -33,33 +33,31 @@ export default {
       probeType: this.probeType, //实时监听滚动位置模式
       pullUpLoad: this.pullUpLoad //上拉加载
     })
-    
     // 监听滚动的位置
-    this.scroll.on('scroll', position => {
-      // console.log(position); //打印滚动位置
-      // 发送滚动事件
-      this.$emit('scroll',position)
-
-    })
-
-    // 监听上拉事件
-    this.scroll.on('pullingUp', () => {
-      this.$emit('pullingUp')
-
-      // 2秒后再次上拉加载,设置延迟避免重复加载
-      setTimeout(() => {
-        this.scroll && this.scroll.finishPullUp()
-      }, 2000);
-    })
+    if (this.probeType == 2 || this.probeType == 3){
+      this.scroll.on('scroll', position => {
+        // 发送滚动事件
+        this.$emit('scroll',position)
+      })
+    }
+    // 监听上拉事件,滚动到底部
+    if (this.pullUpLoad){
+      this.scroll.on('pullingUp', () => {
+        this.$emit('pullingUp')
+        // 2秒后再次上拉加载,设置延迟避免重复加载
+        setTimeout(() => {
+          this.scroll && this.scroll.finishPullUp()
+        }, 2000);
+      })
+    }
   },
   methods: {
     // 返回顶部方法封装，不传time会默认时长为500ms
     scrollTo(x, y, time = 500) {
       this.scroll && this.scroll.scrollTo(x, y, time)
     },
+    // 刷新可滚动高度
     refresh() {
-      // 刷新可滚动高度
-              console.log('------');
       this.scroll && this.scroll.refresh()
     }
   }
