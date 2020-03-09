@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div id="home" @mousewheel.prevent>
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
     <scroll class="content">
       <home-swiper :banners = 'banners'></home-swiper>
@@ -8,6 +8,7 @@
       <tab-control :titles="['流行','新款','精选']" class="tab-control" @tabClick = 'tabClick'></tab-control>
       <goods-list :goods = 'showGoods'></goods-list>
     </scroll>
+    <back-top  @click.native="backClick"></back-top>
   </div>
 </template>
 
@@ -20,6 +21,7 @@
   import TabControl from 'components/content/tabControl/TabControl'
   import GoodsList from 'components/content/goods/GoodsList'
   import Scroll from 'components/common/scroll/Scroll'
+  import BackTop from 'components/content/backTop/BackTop'
 
   import {getHomeMultidata,getHomeGoods} from 'network/home'
 
@@ -32,7 +34,8 @@
       NavBar,
       TabControl,
       GoodsList,
-      Scroll
+      Scroll,
+      BackTop
     },
     data() {
       return {
@@ -82,20 +85,26 @@
           this.recommends = res.data.recommend.list;
         })
       },
+
       getHomeGoods(type) {
         const page = this.goods[type].page + 1 
         getHomeGoods(type, page).then(res => {
           this.goods[type].list.push(...res.data.list)
           this.goods[type].page += 1 
         })
+      },
+
+      backClick() {
+        console.log('up');
+        
       }
+
     }
   }
 </script>
 
 <style scoped>
   #home{
-    /* padding-top: 44px; */
     padding-bottom: 49px;
     height: 100vh;
   }
@@ -109,13 +118,13 @@
     z-index: 9;
   }
   .tab-control {
-    /* position: sticky; */
     top:44px
   }
 
   .content {
     height: calc(100% - 49px);
     overflow: hidden;
-    margin-top: 44px;
+    position: relative;
+    top:44px
   } 
 </style>
