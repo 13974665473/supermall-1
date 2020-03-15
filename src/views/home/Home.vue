@@ -65,7 +65,7 @@
         topIsShow: false,
         tabOffsetTop: 0,
         isTabFixed: false,
-        saveY:0,
+        saveY: 0,
       }
     },
     computed: {
@@ -159,10 +159,8 @@
       this.$refs.scroll.scrollTo(0, this.saveY, 0)
       this.$refs.scroll.refresh()
     },
-    deactived(){
-      this.saveY = this.$refs.scroll.scroll.y
-      console.log(this.saveY);
-      
+    deactivated(){
+      this.saveY = this.$refs.scroll.getCurrentY()
     }
   }
 </script>
