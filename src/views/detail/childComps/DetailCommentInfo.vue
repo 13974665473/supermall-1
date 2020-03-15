@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  import {formatDate} from "common/utils";
   
   export default {
     name: 'DetailCommentInfo',
@@ -34,15 +35,14 @@
         default() {
           return {}
         }
-      },
-      filters: {
-		  showDate: function (value) {
-        let date = new Date(value*1000);
+      }
+    },
+    filters: {
+		  showDate(value) {
+        let date = new Date(value * 1000);
         return formatDate(date, 'yyyy-MM-dd')
       }
     }
-    },
-
     }
 </script>
 <style scoped>
