@@ -7,6 +7,7 @@
       <detail-shop-info :shop = 'shop'></detail-shop-info>
       <detail-goods-info :detailInfo = 'detailInfo' @imgLoad = 'imgLoad'></detail-goods-info>
       <detail-param-info :paramInfo = 'paramInfo'></detail-param-info>
+      <detail-comment-info :commentInfo = 'commentInfo'></detail-comment-info>
     </scroll>
   </div>
 </template>
@@ -18,6 +19,7 @@
   import DetailShopInfo from './childComps/DetailShopInfo'
   import DetailGoodsInfo from './childComps/DetailGoodsInfo'
   import DetailParamInfo from './childComps/DetailParamInfo'
+  import DetailCommentInfo from './childComps/DetailCommentInfo'
 
   import Scroll from 'components/common/scroll/Scroll'
 
@@ -32,7 +34,8 @@
       DetailShopInfo,
       Scroll,
       DetailGoodsInfo,
-      DetailParamInfo
+      DetailParamInfo,
+      DetailCommentInfo
     },
     data() {
       return {
@@ -41,7 +44,8 @@
         goods: {},
         shop: {},
         detailInfo: {},
-        paramInfo: {}
+        paramInfo: {},
+        commentInfo: {}
       }
     },
     //监听属性 类似于data概念
@@ -51,7 +55,7 @@
     //方法集合
     methods: {
       imgLoad() {
-              this.$refs.scroll.scrollTo(0, 0, 0)
+        this.$refs.scroll.scrollTo(0, 0, 0)
         this.$refs.scroll.refresh()
       }
     },
@@ -72,10 +76,10 @@
         this.detailInfo = data.detailInfo
         // 获取参数信息
         this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule)
-        console.log(this.paramInfo);
-        
-      this.$refs.scroll.refresh()
-      this.$refs.scroll.scrollTo(0, 0, 0)
+        // 获取评论信息
+        if(data.rate.cRate !== 0) {
+          this.commentInfo = data.rate.list[0]
+        }
       })
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
