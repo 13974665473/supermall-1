@@ -30,9 +30,9 @@
     methods: {
 	    imgLoad() {
         // 判断一下是否所有图片都获取完成
-        // if (++this.counter === this.imagesLength) {
+        if (++this.counter === this.imagesLength) {
 	        this.$emit('imageLoad')
-        // }
+        }
 	    }
     },
     watch: {
