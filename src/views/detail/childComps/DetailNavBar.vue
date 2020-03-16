@@ -5,7 +5,7 @@
         <img src="~assets/img/common/back.svg">
       </div>
       <div slot="center" class="title">
-        <div v-for="(item, index) in titles" class="title-item" :class="{active: index === currtentIndex}" @click="detailTitleClick(index)">{{item}}</div>
+        <div v-for="(item, index) in titles" class="title-item" :class="{active: index === currentIndex}" @click="detailTitleClick(index)">{{item}}</div>
       </div>
     </nav-bar>
   </div>
@@ -21,12 +21,13 @@
     data () {
       return {
         titles: ['商品','参数','评论','推荐'],
-        currtentIndex: 0
+        currentIndex: 0
       }
     },
     methods: {
       detailTitleClick(index) {
-        this.currtentIndex = index
+        this.currentIndex = index;
+        this.$emit('titleClick', index)
       },
       detailBackClick() {
         this.$router.back()

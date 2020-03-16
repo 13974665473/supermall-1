@@ -33,7 +33,6 @@ export default {
     },
     itemClick() {
       this.$router.push('./detail/' + this.goodsItem.iid)
-      
     }
   }
 }
