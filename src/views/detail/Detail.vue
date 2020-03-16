@@ -5,9 +5,10 @@
       <detail-swiper :topImages = 'topImages'></detail-swiper>
       <detail-base-info :goods = 'goods'></detail-base-info>
       <detail-shop-info :shop = 'shop'></detail-shop-info>
-      <detail-goods-info :detailInfo = 'detailInfo' @imgLoad = 'imgLoad'></detail-goods-info>
+      <detail-goods-info :detailInfo = 'detailInfo' @imgLoad = 'imgLoad' class="goodsinfo"></detail-goods-info>
       <detail-param-info :paramInfo = 'paramInfo'></detail-param-info>
       <detail-comment-info :commentInfo = 'commentInfo'></detail-comment-info>
+      <goods-list :goods= 'recommends'></goods-list>
     </scroll>
   </div>
 </template>
@@ -21,10 +22,13 @@
   import DetailParamInfo from './childComps/DetailParamInfo'
   import DetailCommentInfo from './childComps/DetailCommentInfo'
 
+  import GoodsList from 'components/content/goods/GoodsList'
+
   import Scroll from 'components/common/scroll/Scroll'
-
-  import {getDetail, Goods, Shop, GoodsParam} from 'network/detail'
-
+  
+  import {debounce} from 'common/utils'
+  import {getDetail, Goods, Shop, GoodsParam, getRecommend} from 'network/detail'
+  import {itemListenerMixin} from 'common/mixin'
   export default {
     name: 'Detail',
     components: {
@@ -35,8 +39,10 @@
       Scroll,
       DetailGoodsInfo,
       DetailParamInfo,
-      DetailCommentInfo
+      DetailCommentInfo,
+      GoodsList
     },
+    mixins: [itemListenerMixin],
     data() {
       return {
         iid: null,
@@ -45,7 +51,8 @@
         shop: {},
         detailInfo: {},
         paramInfo: {},
-        commentInfo: {}
+        commentInfo: {},
+        recommends: []
       }
     },
     //监听属性 类似于data概念
@@ -55,7 +62,6 @@
     //方法集合
     methods: {
       imgLoad() {
-        this.$refs.scroll.scrollTo(0, 0, 0)
         this.$refs.scroll.refresh()
       }
     },
@@ -63,7 +69,7 @@
     created() {
       // 保存传入的ID
       this.iid = this.$route.params.iid
-      // 根据ID请求数据
+      // 根据ID请求详情数据
       getDetail(this.iid).then(res => {
         // 获取顶部的轮播数据
         const data = res.result;
@@ -81,11 +87,19 @@
           this.commentInfo = data.rate.list[0]
         }
       })
+      // 请求推荐数据
+      getRecommend().then(res => {
+        this.recommends = res.data.list
+      })
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
-      
+
     },
+    destroyed() {
+      // 离开页面时取消全局事件的监听
+      this.$bus.$off('itemImgLoad',this.itemImgListener)
+    }
     }
 </script>
 <style scoped>
@@ -98,10 +112,15 @@
   .content {
     height: calc(100% - 44px);
     overflow: hidden;
+    position: absolute;
+    top:44px;
   }
   .detail-nav {
     position: relative;
     z-index: 9;
     background-color: #fff;
+  }
+  .goods-info{
+    position: relative;
   }
 </style>

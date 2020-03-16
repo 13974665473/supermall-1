@@ -39,6 +39,7 @@
 
   import {getHomeMultidata,getHomeGoods} from 'network/home'
   import {debounce} from 'common/utils'
+  import {itemListenerMixin} from 'common/mixin'
 
   export default {
     name: "Home",
@@ -52,6 +53,7 @@
       Scroll,
       BackTop
     },
+    mixins: [itemListenerMixin],
     data() {
       return {
         banners: [],
@@ -65,7 +67,7 @@
         topIsShow: false,
         tabOffsetTop: 0,
         isTabFixed: false,
-        saveY: 0,
+        saveY: 0
       }
     },
     computed: {
@@ -88,8 +90,10 @@
             this.currentType = 'sell'
             break
         }
+        // 让tabcontrol保持一致
         this.$refs.tabControl1.currentIndex = index;
         this.$refs.tabControl.currentIndex = index;
+        // 点击tabcontrol滚动到相应的位置
         this.$refs.scroll.scrollTo(0, (-this.tabOffsetTop))
       },
 
@@ -146,21 +150,18 @@
 
     },
     mounted() {
-      // 图片加载完成事件监听，刷新scroll的可滚动高度，优化用户体验
-      const refresh = debounce(this.$refs.scroll.refresh, 100)
-        // 监听事件总线发送来的事件
-        this.$bus.$on('itemImageLoad', () => {
-        // 调用scroll的refresh刷新可滚动高度
-        refresh()
-      })
 
     },
     activated() {
+      // 返回页面时滚动到离开时记录的位置并刷新
       this.$refs.scroll.scrollTo(0, this.saveY, 0)
       this.$refs.scroll.refresh()
     },
     deactivated(){
+    // 离开页面时记录页面离开时的滚动位置
       this.saveY = this.$refs.scroll.getCurrentY()
+    // 离开页面时取消全局事件的监听
+    this.$bus.$off('itemImgLoad',this.itemImgListener)
     }
   }
 </script>
