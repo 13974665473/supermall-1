@@ -149,9 +149,6 @@
       this.getHomeGoods('sell')
 
     },
-    mounted() {
-
-    },
     activated() {
       // 返回页面时滚动到离开时记录的位置并刷新
       this.$refs.scroll.scrollTo(0, this.saveY, 0)

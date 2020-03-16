@@ -1,14 +1,14 @@
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav"></detail-nav-bar>
-    <scroll class="content" ref="scroll">
-      <detail-swiper :topImages = 'topImages'></detail-swiper>
+    <detail-nav-bar class="detail-nav" @titleClick = 'titleClick' ref="nav"></detail-nav-bar>
+    <scroll class="content" ref="scroll" :probe-type = '3' @scroll="contentScroll" >
+      <detail-swiper :top-images = 'topImages'></detail-swiper>
       <detail-base-info :goods = 'goods'></detail-base-info>
       <detail-shop-info :shop = 'shop'></detail-shop-info>
-      <detail-goods-info :detailInfo = 'detailInfo' @imgLoad = 'imgLoad' class="goodsinfo"></detail-goods-info>
-      <detail-param-info :paramInfo = 'paramInfo'></detail-param-info>
-      <detail-comment-info :commentInfo = 'commentInfo'></detail-comment-info>
-      <goods-list :goods= 'recommends'></goods-list>
+      <detail-goods-info :detail-info = 'detailInfo' @imgLoad = 'imgLoad' class="goodsinfo"></detail-goods-info>
+      <detail-param-info :param-info = 'paramInfo' ref="params"></detail-param-info>
+      <detail-comment-info :comment-info = 'commentInfo' ref="comment"></detail-comment-info>
+      <goods-list :goods= 'recommends' ref="recommend"></goods-list>
     </scroll>
   </div>
 </template>
@@ -52,7 +52,9 @@
         detailInfo: {},
         paramInfo: {},
         commentInfo: {},
-        recommends: []
+        recommends: [],
+        themeTopYs: [],
+        // currentIndex: 0,
       }
     },
     //监听属性 类似于data概念
@@ -61,11 +63,38 @@
     },
     //方法集合
     methods: {
+      // 点击navbar滚动到对应的位置
+      titleClick(index) {
+        this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 500)
+      },
+      // 判断图片加载完成，刷新可滚动区域
       imgLoad() {
         this.$refs.scroll.refresh()
-      }
+        // 给navbar中的item定位到对应的位置
+        this.themeTopYs = []
+        this.themeTopYs.push(0);
+        this.themeTopYs.push(this.$refs.params.$el.offsetTop);
+        this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
+        this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
+      },
+      // 监听scroll的滚动
+      contentScroll(position) {
+        // 获取Y值
+        const positionY = -position.y
+        // 与themeTopY进行比对，滚动时让navbar中标题和内容对应
+        let length = this.themeTopYs.length;
+        for(let i =0; i < length; i++) {
+          if(this.currentIndex !== i && ((i < length - 1 && positionY > this.themeTopYs[i] && positionY < this.themeTopYs[i+1]) || (i === length - 1 && positionY > this.themeTopYs[i]))){
+            this.currentIndex = i;
+            this.$refs.nav.currentIndex = this.currentIndex
+            
+          }
+        }
+
+
+      },
     },
-    //生命周期 - 创建完成（可以访问当前this实例）
+
     created() {
       // 保存传入的ID
       this.iid = this.$route.params.iid
@@ -86,14 +115,11 @@
         if(data.rate.cRate !== 0) {
           this.commentInfo = data.rate.list[0]
         }
-      })
+      });
       // 请求推荐数据
       getRecommend().then(res => {
         this.recommends = res.data.list
-      })
-    },
-    //生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() {
+      });
 
     },
     destroyed() {
@@ -123,4 +149,5 @@
   .goods-info{
     position: relative;
   }
+
 </style>
