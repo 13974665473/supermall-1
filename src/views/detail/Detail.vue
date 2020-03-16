@@ -72,6 +72,7 @@
         this.themeTopYs.push(this.$refs.params.$el.offsetTop);
         this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
         this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
+        this.themeTopYs.push(Number.MAX_VALUE)
       },
       // 监听scroll的滚动
       contentScroll(position) {
@@ -79,12 +80,12 @@
         const positionY = -position.y
         // 与themeTopY进行比对，滚动时让navbar中标题和内容对应
         let length = this.themeTopYs.length;
-        for(let i =0; i < length; i++) {
-          if(this.currentIndex !== i && ((i < length - 1 && positionY > this.themeTopYs[i] && positionY < this.themeTopYs[i+1]) || (i === length - 1 && positionY > this.themeTopYs[i]))){
+        for(let i =0; i < length-1; i++) {
+          if(this.currentIndex !== i && (positionY >=  this.themeTopYs[i] && positionY < this.themeTopYs[i+1])){
             this.currentIndex = i;
             this.$refs.nav.currentIndex = this.currentIndex
           }
-        }
+        } 
       },
     },
 
