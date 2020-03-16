@@ -89,8 +89,6 @@
             this.$refs.nav.currentIndex = this.currentIndex
           }
         }
-
-
       },
     },
 
