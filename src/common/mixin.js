@@ -1,4 +1,5 @@
 import {debounce} from 'common/utils'
+import BackTop from 'components/content/backTop/BackTop'
 
 export const itemListenerMixin = {
   data() {
@@ -14,5 +15,21 @@ export const itemListenerMixin = {
     // 调用scroll的refresh刷新可滚动高度
     refresh()
     })
+  }
+}
+// 返回顶部按钮
+export const backTopMixin = {
+  components: {
+    BackTop
+  },
+  data() {
+    return {
+      topIsShow: false,
+    }
+  },
+  methods: {
+    backClick() {
+      this.$refs.scroll.scrollTo(0, 0)
+    },
   }
 }

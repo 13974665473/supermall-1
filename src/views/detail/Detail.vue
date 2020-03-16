@@ -5,11 +5,13 @@
       <detail-swiper :top-images = 'topImages'></detail-swiper>
       <detail-base-info :goods = 'goods'></detail-base-info>
       <detail-shop-info :shop = 'shop'></detail-shop-info>
-      <detail-goods-info :detail-info = 'detailInfo' @imgLoad = 'imgLoad' class="goodsinfo"></detail-goods-info>
+      <detail-goods-info :detail-info = 'detailInfo' @imgLoad = 'imgLoad' class="goods-info" ref="goodsInfo"></detail-goods-info>
       <detail-param-info :param-info = 'paramInfo' ref="params"></detail-param-info>
       <detail-comment-info :comment-info = 'commentInfo' ref="comment"></detail-comment-info>
       <goods-list :goods= 'recommends' ref="recommend"></goods-list>
     </scroll>
+    <detail-bottom-bar @addCart= 'addCart'></detail-bottom-bar>
+    <back-top  @click.native="backClick" v-show='topIsShow'></back-top>
   </div>
 </template>
 
@@ -21,6 +23,8 @@
   import DetailGoodsInfo from './childComps/DetailGoodsInfo'
   import DetailParamInfo from './childComps/DetailParamInfo'
   import DetailCommentInfo from './childComps/DetailCommentInfo'
+  import DetailBottomBar from './childComps/DetailBottomBar'
+
 
   import GoodsList from 'components/content/goods/GoodsList'
 
@@ -28,7 +32,7 @@
   
   import {debounce} from 'common/utils'
   import {getDetail, Goods, Shop, GoodsParam, getRecommend} from 'network/detail'
-  import {itemListenerMixin} from 'common/mixin'
+  import {itemListenerMixin, backTopMixin} from 'common/mixin'
   export default {
     name: 'Detail',
     components: {
@@ -40,9 +44,10 @@
       DetailGoodsInfo,
       DetailParamInfo,
       DetailCommentInfo,
-      GoodsList
+      GoodsList,
+      DetailBottomBar,
     },
-    mixins: [itemListenerMixin],
+    mixins: [itemListenerMixin, backTopMixin],
     data() {
       return {
         iid: null,
@@ -54,7 +59,6 @@
         commentInfo: {},
         recommends: [],
         themeTopYs: [],
-        // currentIndex: 0,
       }
     },
     //方法集合
@@ -85,8 +89,22 @@
             this.currentIndex = i;
             this.$refs.nav.currentIndex = this.currentIndex
           }
-        } 
+        };
+        // 判断backtop是否显示
+        this.topIsShow = (- position.y) > this.$refs.goodsInfo.$el.offsetTop;
       },
+      // 加入购物车
+      addCart() {
+        // 获取购物车需要展示的信息
+        const product = {}
+        product.image = this.topImages[0];
+        product.title = this.goods.title;
+        product.desc = this.goods.desc;
+        product.price = this.goods.realPrice;
+        product.iid = this.iid;
+        // 放入到购物车中
+        
+      }
     },
 
     created() {
@@ -130,7 +148,7 @@
     background-color: #fff;
   }
   .content {
-    height: calc(100% - 44px);
+    height: calc(100% - 100px);
     overflow: hidden;
     position: absolute;
     top:44px;
