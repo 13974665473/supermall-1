@@ -57,10 +57,6 @@
         // currentIndex: 0,
       }
     },
-    //监听属性 类似于data概念
-    computed: {
-      
-    },
     //方法集合
     methods: {
       // 点击navbar滚动到对应的位置
@@ -123,7 +119,7 @@
       // 离开页面时取消全局事件的监听
       this.$bus.$off('itemImgLoad',this.itemImgListener)
     }
-    }
+  }
 </script>
 <style scoped>
   #detail {
