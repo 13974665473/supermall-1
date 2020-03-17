@@ -32,7 +32,7 @@ export default {
       this.$bus.$emit('itemImageLoad')
     },
     itemClick() {
-      this.goodsItem.iid ? this.$router.push('./detail/' + this.goodsItem.iid) : this.$router.replace('./home')
+      this.goodsItem.iid ? this.$router.push('./detail/' + this.goodsItem.iid) : this.$toast.show('该页面尚未完成', 1500)
     }
   }
 }

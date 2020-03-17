@@ -102,7 +102,9 @@
         product.price = this.goods.realPrice;
         product.iid = this.iid;
         // 放入到购物车中
-        this.$store.dispatch('addCart',product)
+        this.$store.dispatch('addCart',product).then(res => {
+          this.$toast.show(res, 1500)
+        })
       }
     },
 
@@ -131,7 +133,6 @@
       getRecommend().then(res => {
         this.recommends = res.data.list
       });
-
     },
     destroyed() {
       // 离开页面时取消全局事件的监听

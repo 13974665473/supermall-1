@@ -8,7 +8,7 @@
     ></CheckButton>
     <span @click="checkClick">全选</span>
     <span class="total-price">合计:¥{{totalPrice}}</span>
-    <span class="buy-product">付款({{checkLength}})</span>
+    <span class="buy-product" @click="buyClick">付款({{checkLength}})</span>
   </div>
 </template>
 
@@ -62,6 +62,12 @@
             //只要一个没选中，变成全部选中
             item.checked = true
           });
+        }
+      },
+
+      buyClick() {
+        if(!this.isSelectAll) {
+          this.$toast.show('请选择要购买的商品', 1500)
         }
       }
     },
