@@ -21,6 +21,8 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-service": "~4.2.0",
+    "postcss-px-to-viewport": "^1.1.1",
+    "postcss-px-viewport": "0.0.4",
     "vue-template-compiler": "^2.6.11"
   }
 }
