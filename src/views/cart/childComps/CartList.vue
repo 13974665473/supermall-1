@@ -22,20 +22,11 @@
       Scroll,
       CartListItem,
     },
-    data() {
-      return {
-        
-      };
-    },
     //监听属性 类似于data概念
     computed: {
       ...mapGetters([
         'cartList'
       ])
-    },
-    //方法集合
-    methods: {
-      
     },
     activated() {
       this.$refs.srcoll.refresh()
@@ -47,7 +38,7 @@
     height: calc(100% - 44px); 
   }
   .content {
-    height: calc(100% - 49px);
+    height: calc(100% - 95px);
         overflow: hidden;
 
   }
