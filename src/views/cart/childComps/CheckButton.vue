@@ -37,6 +37,7 @@
     border-radius: 50%;
     border: 2px solid #ccc;
     cursor: pointer;
+
   }
 
   .selector-active {

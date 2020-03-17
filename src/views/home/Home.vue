@@ -74,6 +74,10 @@
     },
     
     methods: {
+      　　_isMobile() {
+      let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+      return flag;
+    },
       /********* 事件监听********/
       tabClick(index) {
         switch(index){
@@ -140,6 +144,16 @@
       this.getHomeGoods('pop')
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
+    },
+    mounted() {
+      if(this._isMobile()) {
+        this.$toast.show('如果数据不显示，请尝试刷新或者稍后再试。', 1500)
+        setTimeout(() => {
+          this.$toast.show('我的GitHub：ConstOwn', 2500)
+        }, 1500);
+      } else {
+        this.$toast.show('建议使用手机浏览器获得更好体验', 5000)
+      };
 
     },
     activated() {
