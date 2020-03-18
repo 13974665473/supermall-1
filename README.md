@@ -1,8 +1,10 @@
-# supermall
+# SuperMall
 
-## 演示地址：mall.juanertu.com
+* 仿蘑菇街商城Vue项目
 
-## 致谢：coderwhy提供项目
+## 演示地址
+
+[mall.juanertu.com](mall.juanertu.com)
 
 ## Project setup
 ```
@@ -19,5 +21,7 @@ npm run serve
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 致谢：
+
+* coderwhy提供项目。
+
