@@ -4,7 +4,7 @@
 
 ## 演示地址
 
-[mall.juanertu.com](http://mall.juanertu.com)
+[mall.juanertu.com](http://mall.juanertu.com?_blank)
 
 ## Project setup
 ```
