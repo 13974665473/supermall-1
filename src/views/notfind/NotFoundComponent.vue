@@ -1,5 +1,5 @@
 <template>
-  <div class="not-find">
+  <div class="not-find" @touchmove.prevent>
     <div class="box">
       <div class="box__ghost">
         <div class="symbol"></div>
@@ -55,10 +55,10 @@
 }
 
 .box {
-  width: 100vh;
-  height: 100vh;
-  max-height: 100vh;
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  min-height: 100%;
   background: #332F63;
   border-radius: 20px;
   position: absolute;
@@ -66,6 +66,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 30px 50px;
+  z-index: 9;
 }
 .box .box__ghost {
   padding: 15px 25px 25px;
