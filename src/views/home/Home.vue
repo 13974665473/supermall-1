@@ -153,7 +153,7 @@
           this.$toast.show('我的GitHub：ConstOwn', 2500)
         }, 1500);
       } else {
-        this.$toast.show('建议使用手机浏览器获得更好体验', 5000)
+        this.$toast.show('建议使用手机浏览器获得更好体验', 9000)
       };
 
     },
@@ -189,7 +189,7 @@
     position: absolute;
     top:44px;
   } 
-  
+
   .tab-control {
     position: relative;
     z-index: 9;
