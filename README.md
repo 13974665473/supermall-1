@@ -1,5 +1,7 @@
 # supermall
 
+## 致谢：coderwhy提供项目
+
 ## Project setup
 ```
 npm install
