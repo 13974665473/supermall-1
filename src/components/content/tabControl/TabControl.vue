@@ -44,12 +44,15 @@ export default {
     background-color: #fff;
     z-index: 9;
   }
+
   .tab-control-item {
     flex: 1;
   }
+
   .tab-control-item span {
     padding: 5px;
   }
+  
   .active {
     color: var(--color-high-text);
 

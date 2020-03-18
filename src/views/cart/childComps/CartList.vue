@@ -28,6 +28,7 @@
         'cartList'
       ])
     },
+    
     activated() {
       this.$refs.srcoll.refresh()
     }
@@ -37,9 +38,9 @@
   .cart-list {
     height: calc(100% - 44px); 
   }
+
   .content {
     height: calc(100% - 95px);
-        overflow: hidden;
-
+    overflow: hidden;
   }
 </style>

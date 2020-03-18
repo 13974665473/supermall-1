@@ -32,6 +32,7 @@
   import {debounce} from 'common/utils'
   import {getDetail, Goods, Shop, GoodsParam, getRecommend} from 'network/detail'
   import {itemListenerMixin, backTopMixin} from 'common/mixin'
+  
   export default {
     name: 'Detail',
     components: {
@@ -66,6 +67,7 @@
       titleClick(index) {
         this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 500)
       },
+
       // 判断图片加载完成，刷新可滚动区域
       imgLoad() {
         this.$refs.scroll.refresh()
@@ -77,6 +79,7 @@
         this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
         this.themeTopYs.push(Number.MAX_VALUE)
       },
+
       // 监听scroll的滚动
       contentScroll(position) {
         // 获取Y值
@@ -131,6 +134,7 @@
     created() {
       // 保存传入的ID
       this.iid = this.$route.params.iid
+
       // 根据ID请求详情数据
       getDetail(this.iid).then(res => {
         // 获取顶部的轮播数据
@@ -149,6 +153,7 @@
           this.commentInfo = data.rate.list[0]
         }
       });
+
       // 请求推荐数据
       getRecommend().then(res => {
         this.recommends = res.data.list
@@ -167,17 +172,20 @@
     z-index: 9;
     background-color: #fff;
   }
+
   .content {
     height: calc(100% - 100px);
     overflow: hidden;
     position: absolute;
     top:44px;
+
   }
   .detail-nav {
     position: relative;
     z-index: 9;
     background-color: #fff;
   }
+
   .goods-info{
     position: relative;
   }

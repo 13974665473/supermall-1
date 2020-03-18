@@ -1,8 +1,7 @@
 <template>
     <swiper>
       <swiper-item v-for = "item in banners">
-        <!-- <a :href="item.link"> -->
-          <a>
+        <a href="https://www.juanertu.com">
           <img :src="item.image" alt="" @load="imageLoad">
         </a>
       </swiper-item>

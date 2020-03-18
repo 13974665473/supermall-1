@@ -145,6 +145,7 @@
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
     },
+
     mounted() {
       if(this._isMobile()) {
         this.$toast.show('如果数据不显示，请尝试刷新或者稍后再试。', 1500)
@@ -161,6 +162,7 @@
       this.$refs.scroll.scrollTo(0, this.saveY, 0)
       this.$refs.scroll.refresh()
     },
+
     deactivated(){
     // 离开页面时记录页面离开时的滚动位置
       this.saveY = this.$refs.scroll.getCurrentY()
@@ -175,16 +177,19 @@
     padding-bottom: 49px;
     height: 100vh;
   }
+
   .home-nav {
     background-color: var(--color-tint);
     color: #FFF;
   }
+  
   .content {
     height: calc(100% - 49px);
     overflow: hidden;
     position: absolute;
     top:44px;
   } 
+  
   .tab-control {
     position: relative;
     z-index: 9;

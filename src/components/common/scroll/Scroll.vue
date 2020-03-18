@@ -1,8 +1,7 @@
 <template>
-    <!-- ref一般都绑定给子组件 -->
   <div class="wrapper" ref='wrapper'>
     <div class="content">
-          <slot></slot>
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -11,6 +10,7 @@
 import BScroll from 'better-scroll'
 export default {
   name: 'Scroll',
+
   props: {
     probeType: {
       type: Number,
@@ -21,11 +21,13 @@ export default {
       default: false
     }
   },
+
   data() {
     return {
       scroll: null
     }
   },
+
   mounted() {
     // 创建BScroll对象
     this.scroll = new BScroll(this.$refs.wrapper, {
@@ -40,6 +42,7 @@ export default {
         this.$emit('scroll',position)
       })
     }
+
     // 监听上拉事件,滚动到底部
     if (this.pullUpLoad){
       this.scroll.on('pullingUp', () => {
@@ -51,15 +54,18 @@ export default {
       })
     }
   },
+
   methods: {
     // 返回顶部方法封装，不传time会默认时长为500ms
     scrollTo(x, y, time = 500) {
       this.scroll && this.scroll.scrollTo(x, y, time)
     },
+
     // 刷新可滚动高度
     refresh() {
       this.scroll && this.scroll.refresh()
     },
+    
     getCurrentY() {
       return this.scroll ? this.scroll.y : 0
     }

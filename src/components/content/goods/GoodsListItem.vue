@@ -31,6 +31,7 @@ export default {
       // 用事件总线发送事件
       this.$bus.$emit('itemImageLoad')
     },
+    // 点击事件，进行一个判断
     itemClick() {
       this.goodsItem.iid ? this.$router.push('./detail/' + this.goodsItem.iid) : this.$toast.show('该页面尚未完成', 1500)
     }

@@ -51,6 +51,7 @@
     },
     //方法集合
     methods: {
+      // 全选按钮
       checkClick() {
         if(this.isSelectAll) { 
           this.cartList.forEach(item => {
@@ -64,7 +65,7 @@
           });
         }
       },
-
+      // 付款按钮
       buyClick() {
         if(!this.isSelectAll) {
           this.$toast.show('请选择要购买的商品', 1500)

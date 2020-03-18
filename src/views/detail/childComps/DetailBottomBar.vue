@@ -18,7 +18,6 @@
       <div class="cart" @click="addToCart">加入购物车</div>
       <div class="buy" @click="buyTocart">购买</div>
     </div>
-    <!-- <sport-ball ref="ball" class="sport-ball"></sport-ball> -->
   </div>
 </template>
 
@@ -26,18 +25,6 @@
   
   export default {
     name: 'DetailBottomBar',
-    components: {
-    
-    },
-    data() {
-      return {
-        
-      };
-    },
-    //监听属性 类似于data概念
-    computed: {
-      
-    },
     //方法集合
     methods: {
       addToCart() {
@@ -49,15 +36,7 @@
         this.$emit('buyNow')
       }
     },
-    //生命周期 - 创建完成（可以访问当前this实例）
-    created() {
-      
-    },
-    //生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() {
-      
-    },
-    }
+  }
 </script>
 <style scoped>
 .bottom-bar {
