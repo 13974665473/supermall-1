@@ -6,6 +6,7 @@ const Category = () => import('../views/category/Category')
 const Cart = () => import('../views/cart/Cart')
 const Profile = () => import('../views/profile/Profile')
 const Detail = () => import('../views/detail/Detail')
+const NotFoundComponent = () => import('../views/notfind/NotFoundComponent')
 
 // 1.安装插件
 Vue.use(VueRouter)
@@ -16,6 +17,8 @@ const routes = [
     path: '',
     redirect: '/home'
   },
+  { path: '/404', 
+    component: NotFoundComponent },
   {
     path: '/home',
     component: Home
