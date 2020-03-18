@@ -2,6 +2,10 @@
 
 * 仿蘑菇街商城Vue项目
 
+## 演示地址
+
+[mall.juanertu.com](mall.juanertu.com)
+
 ## Project setup
 ```
 npm install
