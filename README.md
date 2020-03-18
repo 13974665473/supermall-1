@@ -1,5 +1,7 @@
 # supermall
 
+## 演示地址：mall.juanertu.com
+
 ## 致谢：coderwhy提供项目
 
 ## Project setup
