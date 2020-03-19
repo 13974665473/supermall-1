@@ -23,5 +23,5 @@ npm run build
 
 ## 致谢：
 
-* coderwhy提供项目。
+* coderwhy提供项目。项目真实接口请联系coderwhy。
 
