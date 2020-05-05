@@ -23,5 +23,9 @@ npm run build
 
 ## 致谢：
 
-* coderwhy提供项目。项目真实接口请联系coderwhy。
+* coderwhy提供项目。
+
+## 接口开发
+
+项目地址：[https://github.com/constown/mallAPI](https://github.com/constown/mallAPI)
 
