@@ -25,7 +25,7 @@
 
 ## 接口开发
 
-项目地址：[https://github.com/constown/mallAPI](https://github.com/constown/mallAPI)
+项目地址：[mallAPI : superMall商城数据接口开发](https://github.com/constown/mallAPI)
 
 ## 项目部署
 
@@ -38,15 +38,9 @@ git clone https://github.com/constown/supermall.git
 - 安装项目依赖
 
 ```
-
-- 修改`src/network/request.js` 文件中的数据接口baseURL
-
+npm install
 ```
-  const instance = axios.create({
-    baseURL: "修改为你的数据接口",
-    timeout: 5000
-  })
-```
+
 
 - 修改`src/network/request.js` 文件中的数据接口baseURL
 
