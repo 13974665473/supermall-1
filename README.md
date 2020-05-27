@@ -38,7 +38,14 @@ git clone https://github.com/constown/supermall.git
 - 安装项目依赖
 
 ```
-npm install
+
+- 修改`src/network/request.js` 文件中的数据接口baseURL
+
+```
+  const instance = axios.create({
+    baseURL: "修改为你的数据接口",
+    timeout: 5000
+  })
 ```
 
 - 修改`src/network/request.js` 文件中的数据接口baseURL
