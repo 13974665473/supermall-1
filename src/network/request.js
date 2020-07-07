@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export function request(config) {
   const instance = axios.create({
-    baseURL: "https://api.juanertu.com/",
+    baseURL: "修改为你自己的数据接口",
     timeout: 5000
   })
 
