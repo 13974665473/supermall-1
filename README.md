@@ -67,7 +67,5 @@ npm run build
 
 我采用了 `history` 路由模式，会导致刷新出现404的问题，你可以参考 [这篇文章](https://blog.juanertu.com/archives/15049ec0.html) 。 
 
-## 致谢：
 
-* coderwhy提供项目。
 
